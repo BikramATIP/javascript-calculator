@@ -55,20 +55,15 @@ const reducer = (state, {type, payload}) => {
         operation: payload.operation
       }
      case ACTIONS.EQUALS:
-     if (
-      state.operation === null ||
-      state.currentOperand === null ||
-      state.previousOperand == null
-     ) {
-      return state;
-     }
-    return {
-      ...state,
-      previousOperand: null,
-      currentOperand: evaluate(state.currentOperand, state.previousOperand, state.operation),
-      operation: null
-    }
-
+      if (state.currentOperand === null || state.previousOperand === null || state.operation === null) {
+        return state;
+      }
+      return {
+        ...state, 
+        currentOperand: evaluate(state.currentOperand, state.previousOperand, state.operation), 
+        previousOperand: null,
+        operation: null
+      }
   }  
 }
 
