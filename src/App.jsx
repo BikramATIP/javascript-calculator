@@ -8,8 +8,8 @@ function App() {
     <>
     <div className="calculator" id="calculator">
       <div className="display">
-        <div className="previous-operand"></div>
-        <div className="current-operand"></div>
+        <div className="previous-operand">123,323</div>
+        <div className="current-operand">123,423</div>
       </div>
       <button className="span-2">AC</button>
       <button>DEL</button>
@@ -28,7 +28,7 @@ function App() {
       <button>-</button>
       <button>0</button>
       <button>.</button>
-      <button clasName="span-2">=</button>
+      <button className="span-2">=</button>
     </div>
     </>
   )
