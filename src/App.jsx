@@ -7,19 +7,40 @@ import OperationButton from './OperationButton';
 export const ACTIONS = {
   ADD_DIGIT: 'add-digit',
   DELETE_DIGIT: 'delete-digit',
-  CLEAR: 'cleer',
+  CLEAR: 'claer',
   SET_OPERATION: 'set-operation'
 }
 
 const reducer = (state, {type, payload}) => {
   switch (type) {
       case ACTIONS.ADD_DIGIT:
+      if (payload.digit === "0" && state.currentOperand === "0") return state;
+      if (payload.digit === '.' && state.currentOperand.includes(".")) return state;
+
       return {
         ...state,
         currentOperand: `${state.currentOperand || ''}${payload.digit}`
       }
-       
+
+      case ACTIONS.CLEAR: 
+      return {}
       
+      case ACTIONS.SET_OPERATION:
+        if (state.currentOperand === null || state.previousOperand === null) {
+          return state;
+        }
+
+        if (state.previousOperand == null) {
+          return {
+            ...state,
+            operation: payload.operation,
+            previousOperand: state.currentOperand,
+            currentOperand: ''
+          }
+        }
+
+       
+       
   }
   
 }
