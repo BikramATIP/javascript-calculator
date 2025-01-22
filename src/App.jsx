@@ -60,13 +60,24 @@ const reducer = (state, {type, payload}) => {
           return state;
         }
 
-        if (state.currentOperand === null) {
+        // Handle negative sign after operator
+        if (payload.operation === '-' && state.currentOperand === null) {
           return {
             ...state,
-            operation: payload.operation
+            currentOperand: '-'
           }
         }
 
+        // Replace previous operator if current is negative or null
+        if (state.currentOperand === null || state.currentOperand === '-') {
+          return {
+            ...state,
+            operation: payload.operation,
+            currentOperand: null
+          }
+        }
+
+        // First operation
         if (state.previousOperand == null) {
           return {
             ...state,
@@ -76,12 +87,13 @@ const reducer = (state, {type, payload}) => {
           }
         }
 
-      return {
-        ...state,
-        previousOperand: evaluate(state.currentOperand, state.previousOperand, state.operation),
-        currentOperand: null,
-        operation: payload.operation
-      }
+        // Chain operations
+        return {
+          ...state,
+          previousOperand: evaluate(state.currentOperand, state.previousOperand, state.operation),
+          operation: payload.operation,
+          currentOperand: null
+        }
 
      case ACTIONS.EQUALS:
       if (state.currentOperand === null || state.previousOperand === null || state.operation === null) {
