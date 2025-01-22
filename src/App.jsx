@@ -12,7 +12,20 @@ export const ACTIONS = {
 }
 
 const reducer = (state, {type, payload}) => {
-  
+  switch (type) {
+      case ACTIONS.ADD_DIGIT:
+      if (state.currentOperand === '0' && payload.digit === '0') return state;
+      if (payload.digit === '.' && state.currentOperand.includes(".")) return state;
+        return {
+          ...state,
+          currentOperand: `${state.currentOperand || ''}${payload.digit}`
+        }
+        case ACTIONS.CLEAR:
+          return {};
+        case ACTIONS.SET_OPERATION:
+          
+          
+  }
   
 }
 
@@ -24,10 +37,10 @@ function App() {
     <>
     <div className="calculator" id="calculator">
       <div className="display">
-        <div className="previous-operand"></div>
-        <div className="current-operand"></div>
+        <div className="previous-operand">{previousOperand} {operation}</div>
+        <div className="current-operand">{currentOperand}</div>
       </div>
-      <button className="span-2">AC</button>
+      <button className="span-2" onClick={() => dispatch({type: ACTIONS.CLEAR})}>AC</button>
       <button>DEL</button>
       <OperationButton operation='÷' dispatch={dispatch} />
       <DigitButton digit="1" dispatch={dispatch} />
