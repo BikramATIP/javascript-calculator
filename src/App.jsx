@@ -8,7 +8,8 @@ export const ACTIONS = {
   ADD_DIGIT: 'add-digit',
   DELETE_DIGIT: 'delete-digit',
   CLEAR: 'claer',
-  SET_OPERATION: 'set-operation'
+  SET_OPERATION: 'set-operation',
+  EQUALS: 'equals'
 }
 
 const reducer = (state, {type, payload}) => {
@@ -26,7 +27,7 @@ const reducer = (state, {type, payload}) => {
       return {}
       
       case ACTIONS.SET_OPERATION:
-        if (state.currentOperand === null || state.previousOperand === null) {
+        if (state.currentOperand === null && state.previousOperand === null) {
           return state;
         }
 
@@ -42,17 +43,36 @@ const reducer = (state, {type, payload}) => {
             ...state,
             operation: payload.operation,
             previousOperand: state.currentOperand,
-            currentOperand: ''
+            currentOperand: null
           }
         }
+
+        
       return {
         ...state,
-        previousOperation: evaluate(state),
-        currentOperant: null,
+        previousOperand: evaluate(state.currentOperand, state.previousOperand, state.operation),
+        currentOperand: null,
         operation: payload.operation
       }
-  }
+     case ACTIONS.EQUALS:
+     if (
+      state.operation === null ||
+      state.currentOperand === null ||
+      state.previousOperand == null
+     ) {
+      return state;
+     }
+    return {
+      ...state,
+      previousOperand: null,
+      currentOperand: evaluate(state.currentOperand, state.previousOperand, state.operation),
+      operation: null
+    }
+
+  }  
 }
+
+ 
 
 function evaluate(currentOperand, previousOperand, operation) {
    const prev = parseFloat(previousOperand);
@@ -64,12 +84,16 @@ function evaluate(currentOperand, previousOperand, operation) {
    switch(operation) {
     case "+":
       computation = prev + current;
+      break
       case '-':
       computation =  prev - current;
+      break
       case "*":
       computation =  prev * current;
+      break
       case '÷':
       computation = prev / current;
+      
    }
    return computation.toString();
    
@@ -105,7 +129,7 @@ function App() {
       <DigitButton digit="0" dispatch={dispatch} />
       <DigitButton digit="." dispatch={dispatch} />
 
-      <button className="span-2">=</button>
+      <button className="span-2" onClick={() => dispatch({type: ACTIONS.EQUALS})}>=</button>
     </div>
     </>
   )
