@@ -154,27 +154,27 @@ function App() {
     <div className="calculator" id="calculator">
       <div className="display">
         <div className="previous-operand">{formatPreviousOperand(previousOperand)} {operation}</div>
-        <div className="current-operand">{formatCurrentOperand(currentOperand)}</div>
+        <div id="display" className="current-operand">{formatCurrentOperand(currentOperand)}</div>
       </div>
-      <button className="span-2" onClick={() => dispatch({type: ACTIONS.CLEAR})}>AC</button>
+      <button id="clear" className="span-2" onClick={() => dispatch({type: ACTIONS.CLEAR})}>AC</button>
       <button onClick={() => dispatch({type: ACTIONS.DELETE_DIGIT})}>DEL</button>
-      <OperationButton operation='÷' dispatch={dispatch} />
-      <DigitButton digit="1" dispatch={dispatch} />
-      <DigitButton digit="2" dispatch={dispatch} />
-      <DigitButton digit="3" dispatch={dispatch} />
-      <OperationButton operation='*' dispatch={dispatch} />
-      <DigitButton digit="4" dispatch={dispatch} />
-      <DigitButton digit="5" dispatch={dispatch} />
-      <DigitButton digit="6" dispatch={dispatch} />
-      <OperationButton operation='+' dispatch={dispatch} />
-      <DigitButton digit="7" dispatch={dispatch} />
-      <DigitButton digit="8" dispatch={dispatch} />
-      <DigitButton digit="9" dispatch={dispatch} />
-      <OperationButton operation='-' dispatch={dispatch} />
-      <DigitButton digit="0" dispatch={dispatch} />
-      <DigitButton digit="." dispatch={dispatch} />
+      <OperationButton id="divide" operation='÷' dispatch={dispatch} />
+      <DigitButton id="one" digit="1" dispatch={dispatch} />
+      <DigitButton id="two" digit="2" dispatch={dispatch} />
+      <DigitButton id="three" digit="3" dispatch={dispatch} />
+      <OperationButton id="multiply" operation='*' dispatch={dispatch} />
+      <DigitButton id="four" digit="4" dispatch={dispatch} />
+      <DigitButton id="five" digit="5" dispatch={dispatch} />
+      <DigitButton id="six" digit="6" dispatch={dispatch} />
+      <OperationButton id="add" operation='+' dispatch={dispatch} />
+      <DigitButton id="seven" digit="7" dispatch={dispatch} />
+      <DigitButton id="eight" digit="8" dispatch={dispatch} />
+      <DigitButton id="nine" digit="9" dispatch={dispatch} />
+      <OperationButton id="subtract" operation='-' dispatch={dispatch} />
+      <DigitButton id="zero" digit="0" dispatch={dispatch} />
+      <DigitButton id="decimal" digit="." dispatch={dispatch} />
 
-      <button className="span-2" onClick={() => dispatch({type: ACTIONS.EQUALS})}>=</button>
+      <button className="span-2" id="equals" onClick={() => dispatch({type: ACTIONS.EQUALS})}>=</button>
     </div>
     </>
   )
