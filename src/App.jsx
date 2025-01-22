@@ -43,8 +43,8 @@ const reducer = (state, {type, payload}) => {
               currentOperand: null
              }
           }
-          if (state.currentOperand === null) return state;
-          if (state.currentOperand.lenth === 1) {
+          if (!state.currentOperand) return state;
+          if (state.currentOperand.length === 1) {
             return {
               ...state,
               currentOperand: null
