@@ -30,6 +30,13 @@ const reducer = (state, {type, payload}) => {
           return state;
         }
 
+        if (state.currentOperand === null) {
+          return {
+            ...state,
+            operation: payload.operation
+          }
+        }
+
         if (state.previousOperand == null) {
           return {
             ...state,
@@ -51,11 +58,20 @@ function evaluate(currentOperand, previousOperand, operation) {
    const prev = parseFloat(previousOperand);
    const current = parseFloat(currentOperand);
 
-   if (isNaN(prev) || isNaN(current)) return state;
+   if (isNaN(prev) || isNaN(current)) return;
+   let computation = '';
    
    switch(operation) {
-
+    case "+":
+      computation = prev + current;
+      case '-':
+      computation =  prev - current;
+      case "*":
+      computation =  prev * current;
+      case '÷':
+      computation = prev / current;
    }
+   return computation.toString();
    
 }
 
