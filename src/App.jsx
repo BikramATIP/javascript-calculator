@@ -101,11 +101,20 @@ const INTEGER_FORMATTER = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0
 });
 
-const formatNumber = (operand) => {
-   if (operand == null) return;
-   const [integer, decimal] = operand.split('.');
-   if (decimal == null) return INTEGER_FORMATTER.format(integer);
-   return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
+function formatCurrentOperand(operand) {
+  if (operand == null || operand === '') return "0"
+  
+  const [integer, decimal] = operand.toString().split('.')
+  if (decimal == null) return INTEGER_FORMATTER.format(integer)
+  return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
+}
+
+function formatPreviousOperand(operand) {
+  if (operand == null || operand === '') return ""
+  
+  const [integer, decimal] = operand.toString().split('.')
+  if (decimal == null) return INTEGER_FORMATTER.format(integer)
+  return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
 }
 
  
@@ -144,8 +153,8 @@ function App() {
     <>
     <div className="calculator" id="calculator">
       <div className="display">
-        <div className="previous-operand">{formatNumber(previousOperand)} {operation}</div>
-        <div className="current-operand">{formatNumber(currentOperand)}</div>
+        <div className="previous-operand">{formatPreviousOperand(previousOperand)} {operation}</div>
+        <div className="current-operand">{formatCurrentOperand(currentOperand)}</div>
       </div>
       <button className="span-2" onClick={() => dispatch({type: ACTIONS.CLEAR})}>AC</button>
       <button onClick={() => dispatch({type: ACTIONS.DELETE_DIGIT})}>DEL</button>
