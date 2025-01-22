@@ -12,12 +12,8 @@ export const ACTIONS = {
 }
 
 const reducer = (state, {type, payload}) => {
-  if (type === ACTIONS.ADD_DIGIT) {
-    return {
-      ...state,
-      currentOperand: state.currentOperand + payload.digit,
-    }
-  }
+  
+  
 }
 
 function App() {
